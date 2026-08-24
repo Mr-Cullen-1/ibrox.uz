@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# iBrox.uz — Apple Namangan
 
-## Getting Started
+Premium-сайт магазина техники iBrox.uz (бренд «Apple Namangan»): iPhone, Samsung, аксессуары, покупка за наличные или в рассрочку.
 
-First, run the development server:
+## Стек
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- Lucide Icons
+
+## Запуск локально
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Другие команды:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # production-сборка
+npm run start   # запуск production-сборки локально
+npm run lint    # ESLint
+```
 
-## Learn More
+## Структура проекта
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/                 # страницы (App Router)
+  components/          # компоненты по разделам (home, product, catalog, cart, search, layout, ui, installment, i18n)
+  context/              # React Context: корзина, избранное, поиск, язык
+  data/                 # демо-данные: товары, категории, рассрочка, контакты, переводы
+  hooks/                # useLocalStorage, useTranslation
+  lib/                  # утилиты (cn, formatUZS)
+  providers/            # корневой AppProviders
+  types/                # типы TypeScript
+public/
+  brand/ categories/ hero/ products/   # изображения
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Данные
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Каталог, категории, условия рассрочки и контакты магазина лежат в `src/data/*.ts` — это единственное место, которое нужно менять при обновлении цен, товаров или контактов. Компоненты UI менять не требуется.
 
-## Deploy on Vercel
+Цены и часть характеристик — демонстрационные (см. комментарии в `src/data/products.ts`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Локализация
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Сайт поддерживает русский и узбекский (латиница) языки, переключатель — в шапке сайта. Механизм перевода — словарь `src/data/translations.ts` (ключ — русская строка, значение — перевод) и хук `useTranslation()`. Подробности — в комментариях `src/hooks/useTranslation.ts`.
+
+## Деплой
+
+Проект готов к деплою на [Vercel](https://vercel.com/new) — импортируйте репозиторий, Vercel определит Next.js автоматически. Переменные окружения не требуются.
